@@ -1,0 +1,47 @@
+<header id="header" class="header dark-background d-flex flex-column"> 
+  <div class="header-top">
+    <div class="logo">
+      <img src="assets/logo.png" alt="logo"> 
+    </div>
+  </div>
+        <nav id="navmenu" class="navmenu">
+        <ul>
+            <li>
+            <a routerLink="">
+                <i class="bi bi-house navicon"></i> Accueil
+            </a>
+            </li>
+
+            <li>
+            <a routerLink="/patients">
+                <i class="bi bi-people navicon"></i> Mes Patients
+            </a>
+            </li>
+
+            <li>
+            <a routerLink="/finance">
+                <i class="bi bi-cash-stack navicon"></i> Financement
+            </a>
+            </li>
+
+            <li>
+            <a routerLink="/calendar">
+                <i class="bi bi-calendar-week navicon"></i> Emploi du Temps
+            </a>
+            </li>
+
+            <li>
+            <a routerLink="/parametres">
+                <i class="bi bi-gear navicon"></i> Paramètres
+            </a>
+            </li>
+
+            <li>
+            <a (click)="logout()">
+                <i class="bi bi-box-arrow-right navicon"></i> Déconnexion
+            </a>
+            </li>
+        </ul>
+        </nav>
+
+</header>

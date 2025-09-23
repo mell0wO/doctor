@@ -1,0 +1,41 @@
+.patient-card {
+  width: 250px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.patient-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.patient-card h3 {
+  margin: 0;
+  font-size: 1.5rem;        /* Bigger name */
+  font-weight: 700;         /* Bolder */
+  text-align: center;
+  color: #2c2f4a;
+}
+
+.patient-card .divider {
+  margin: 10px auto 15px;
+  height: 2px;
+  width: 60%;
+  background: linear-gradient(to right, #6a82fb, #fc5c7d); /* Nice accent line */
+  border-radius: 2px;
+}
+
+.patient-card p {
+  margin: 6px 0;
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.4;
+}
+
+.patient-card strong {
+  color: #2c2f4a; /* make labels darker */
+}

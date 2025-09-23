@@ -1,0 +1,23 @@
+<div class="patients-layout">
+  <app-sidebar class="sidebar"></app-sidebar>
+
+  <main class="patients-main">
+    <div class="patients-header">
+      <h1>Patients</h1>
+
+      <div class="searchBox">
+        <i class="bi bi-search"></i>
+        <input type="text" placeholder="Rechercher"
+        #searchInput  
+        (input)="searchData(searchInput.value)"/>
+      </div>
+    </div>
+
+    <div class="patients-grid">
+      <div *ngFor="let p of displayedPatients" (click)="showPatientData(p)">
+        <app-patient-card [patient]="p"></app-patient-card>
+      </div>
+    </div>
+
+  </main>
+</div>
