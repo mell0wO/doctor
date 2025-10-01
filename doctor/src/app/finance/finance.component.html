@@ -1,320 +1,84 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Medical Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#0ea5e9',
-                        secondary: '#8b5cf6',
-                        success: '#10b981',
-                        warning: '#f59e0b',
-                        dark: '#1e293b',
-                        light: '#f8fafc'
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-            min-height: 100vh;
-        }
-        
-        .card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-radius: 16px;
-            overflow: hidden;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        
-        .gradient-bg {
-            background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
-        }
-        
-        .stat-card {
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .stat-card::before {
-            content: '';
-            position: absolute;
-            top: -20px;
-            right: -20px;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-        }
-        
-        .stat-card::after {
-            content: '';
-            position: absolute;
-            bottom: -30px;
-            right: -30px;
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.15);
-        }
-        
-        .agenda-item {
-            border-left: 3px solid #10b981;
-            transition: all 0.3s ease;
-        }
-        
-        .agenda-item:hover {
-            background-color: #f0fdfa;
-            transform: translateX(5px);
-        }
-        
-        .progress-bar {
-            height: 8px;
-            border-radius: 4px;
-            overflow: hidden;
-            background-color: #e2e8f0;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            border-radius: 4px;
-            background: linear-gradient(90deg, #8b5cf6 0%, #a855f7 100%);
-            width: 65%;
-        }
-        
-        .dashboard-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-    </style>
-</head>
-<body class="py-8 px-4">
-    <div class="dashboard-container">
-        <!-- Header -->
-        <header class="flex justify-between items-center mb-8">
-            <div>
-                <h1 class="text-3xl font-bold text-dark">Medical Dashboard</h1>
-                <p class="text-gray-500">Welcome back, Dr. Smith</p>
-            </div>
-            <div class="flex items-center space-x-4">
-                <div class="relative">
-                    <i class="fas fa-bell text-gray-500 text-xl"></i>
-                    <span class="absolute -top-1 -right-1 bg-warning w-4 h-4 rounded-full flex items-center justify-center text-xs text-white">3</span>
-                </div>
-                <div class="w-10 h-10 rounded-full gradient-bg flex items-center justify-center text-white font-bold">DS</div>
-            </div>
-        </header>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <!-- Balance Card -->
-            <div class="card stat-card bg-white p-6 shadow-lg col-span-1">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <p class="text-gray-500 font-medium">Available Balance</p>
-                        <h2 class="text-3xl font-bold text-gray-800 mt-2">1,250 Dt</h2>
-                        <div class="flex items-center mt-4 text-success">
-                            <i class="fas fa-arrow-up mr-2"></i>
-                            <span>12% from last month</span>
-                        </div>
-                    </div>
-                    <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
-                        <i class="fas fa-wallet text-primary text-xl"></i>
-                    </div>
-                </div>
-                <div class="mt-6">
-                    <button class="w-full py-2 bg-primary hover:bg-blue-600 text-white rounded-lg transition-colors">
-                        Withdraw Funds
-                    </button>
-                </div>
-            </div>
+<div class="finance-container">
 
-            <!-- Debt Card -->
-            <div class="card stat-card bg-white p-6 shadow-lg col-span-1">
-                <div class="flex justify-between items-start">
-                    <div>
-                        <p class="text-gray-500 font-medium">Current Debt</p>
-                        <h2 class="text-3xl font-bold text-gray-800 mt-2">750 Dt</h2>
-                        <div class="flex items-center mt-4 text-warning">
-                            <i class="fas fa-arrow-down mr-2"></i>
-                            <span>8% from last month</span>
-                        </div>
-                    </div>
-                    <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center">
-                        <i class="fas fa-credit-card text-secondary text-xl"></i>
-                    </div>
-                </div>
-                <div class="mt-6">
-                    <div class="progress-bar">
-                        <div class="progress-fill"></div>
-                    </div>
-                    <p class="text-gray-500 text-sm mt-2">65% paid of 2,150 Dt total</p>
-                </div>
-            </div>
+  <!-- KPI Cards -->
+  <div class="kpi-cards">
+    <div class="kpi-card">
+      <h3>Débit</h3>
+      <p>{{ debit | number }} DT</p>
+    </div>
+    <div class="kpi-card">
+      <h3>Crédit</h3>
+      <p>{{ credit | number }} DT</p>
+    </div>
+    <div class="kpi-card">
+      <h3>Profit</h3>
+      <p>{{ profit | number }} DT</p>
+    </div>
+  </div>
 
-            <!-- Stats Summary -->
-            <div class="card bg-dark text-white p-6 shadow-lg col-span-1 md:col-span-3 md:grid md:grid-cols-3 gap-4">
-                <div class="flex items-center justify-between p-4 bg-slate-700 rounded-lg">
-                    <div>
-                        <p class="text-gray-300">Appointments</p>
-                        <h3 class="text-2xl font-bold">18</h3>
-                    </div>
-                    <i class="fas fa-calendar-check text-3xl text-cyan-300"></i>
-                </div>
-                <div class="flex items-center justify-between p-4 bg-slate-700 rounded-lg">
-                    <div>
-                        <p class="text-gray-300">Patients</p>
-                        <h3 class="text-2xl font-bold">24</h3>
-                    </div>
-                    <i class="fas fa-user-injured text-3xl text-emerald-300"></i>
-                </div>
-                <div class="flex items-center justify-between p-4 bg-slate-700 rounded-lg">
-                    <div>
-                        <p class="text-gray-300">Messages</p>
-                        <h3 class="text-2xl font-bold">7</h3>
-                    </div>
-                    <i class="fas fa-envelope text-3xl text-amber-300"></i>
-                </div>
-            </div>
+  <!-- Sales & Purchases Chart -->
+  <div class="chart-container">
+    <h4>Sales & Purchases</h4>
+    <canvas id="financeChart"></canvas>
+    <div class="tabs">
+      <span class="active">Day</span>
+      <span>Week</span>
+      <span>Month</span>
+      <span>Year</span>
+    </div>
+  </div>
 
-            <!-- Agenda Card -->
-            <div class="card bg-white p-6 shadow-lg col-span-1 md:col-span-2">
-                <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-xl font-bold text-dark">Today's Agenda</h3>
-                    <span class="text-primary text-sm">Sept 19, 2023</span>
-                </div>
-                
-                <div class="space-y-4">
-                    <div class="agenda-item p-4 rounded-lg bg-white">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <h4 class="font-semibold text-gray-800">Consultation</h4>
-                                <p class="text-gray-500">With Sarah Johnson</p>
-                            </div>
-                            <div class="text-right">
-                                <span class="bg-blue-100 text-primary px-3 py-1 rounded-full text-sm">10:00 - 11:00</span>
-                                <p class="text-gray-500 mt-1">Room 204</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="agenda-item p-4 rounded-lg bg-white">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <h4 class="font-semibold text-gray-800">Implants</h4>
-                                <p class="text-gray-500">Michael Roberts</p>
-                            </div>
-                            <div class="text-right">
-                                <span class="bg-purple-100 text-secondary px-3 py-1 rounded-full text-sm">14:00 - 15:30</span>
-                                <p class="text-gray-500 mt-1">Operation Room 2</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="agenda-item p-4 rounded-lg bg-white">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <h4 class="font-semibold text-gray-800">Location Visit</h4>
-                                <p class="text-gray-500">New clinic site</p>
-                            </div>
-                            <div class="text-right">
-                                <span class="bg-amber-100 text-amber-600 px-3 py-1 rounded-full text-sm">16:00 - 17:00</span>
-                                <p class="text-gray-500 mt-1">Downtown Branch</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <button class="w-full mt-6 py-3 bg-light border border-gray-200 text-gray-600 rounded-lg hover:bg-gray-50 transition-colors">
-                    View Full Schedule
-                </button>
-            </div>
-
-            <!-- Upcoming Events -->
-            <div class="card bg-white p-6 shadow-lg col-span-1">
-                <h3 class="text-xl font-bold text-dark mb-6">Upcoming Events</h3>
-                
-                <div class="space-y-5">
-                    <div class="flex items-start">
-                        <div class="bg-green-100 text-success p-2 rounded-lg">
-                            <i class="fas fa-users text-lg"></i>
-                        </div>
-                        <div class="ml-4">
-                            <h4 class="font-semibold">Staff Meeting</h4>
-                            <p class="text-gray-500 text-sm">Tomorrow, 09:00</p>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-start">
-                        <div class="bg-blue-100 text-primary p-2 rounded-lg">
-                            <i class="fas fa-star text-lg"></i>
-                        </div>
-                        <div class="ml-4">
-                            <h4 class="font-semibold">Conference</h4>
-                            <p class="text-gray-500 text-sm">Sept 22, 13:00</p>
-                        </div>
-                    </div>
-                    
-                    <div class="flex items-start">
-                        <div class="bg-purple-100 text-secondary p-2 rounded-lg">
-                            <i class="fas fa-gem text-lg"></i>
-                        </div>
-                        <div class="ml-4">
-                            <h4 class="font-semibold">Dental Expo</h4>
-                            <p class="text-gray-500 text-sm">Oct 5-7, 2023</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="mt-8">
-                    <h4 class="font-semibold text-dark mb-3">Quick Actions</h4>
-                    <div class="grid grid-cols-2 gap-3">
-                        <button class="py-2 bg-light text-gray-600 rounded-lg text-sm hover:bg-gray-100 transition-colors">
-                            <i class="fas fa-plus mr-1"></i> Appointment
-                        </button>
-                        <button class="py-2 bg-light text-gray-600 rounded-lg text-sm hover:bg-gray-100 transition-colors">
-                            <i class="fas fa-file-invoice mr-1"></i> Invoice
-                        </button>
-                        <button class="py-2 bg-light text-gray-600 rounded-lg text-sm hover:bg-gray-100 transition-colors">
-                            <i class="fas fa-user-plus mr-1"></i> Patient
-                        </button>
-                        <button class="py-2 bg-light text-gray-600 rounded-lg text-sm hover:bg-gray-100 transition-colors">
-                            <i class="fas fa-chart-bar mr-1"></i> Reports
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <!-- Tables -->
+  <div class="tables">
+    <!-- Billings -->
+    <div class="table-card">
+      <h4>Billings</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Libellé</th>
+            <th>Id</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let b of billings">
+            <td>{{ b.label }}</td>
+            <td>{{ b.id }}</td>
+            <td>{{ b.date }}</td>
+            <td><span class="status" [ngClass]="b.status">{{ b.status }}</span></td>
+            <td>{{ b.amount }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
-    <script>
-        // Simple animation on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.card');
-            cards.forEach((card, index) => {
-                card.style.opacity = "0";
-                card.style.transform = "translateY(20px)";
-                setTimeout(() => {
-                    card.style.transition = "opacity 0.5s ease, transform 0.5s ease";
-                    card.style.opacity = "1";
-                    card.style.transform = "translateY(0)";
-                }, 100 + (index * 100));
-            });
-        });
-    </script>
-</body>
-</html>
+    <!-- Quotes -->
+    <div class="table-card">
+      <h4>Quotes</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Libellé</th>
+            <th>Id</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let q of quotes">
+            <td>{{ q.label }}</td>
+            <td>{{ q.id }}</td>
+            <td>{{ q.date }}</td>
+            <td><span class="status" [ngClass]="q.status">{{ q.status }}</span></td>
+            <td>{{ q.amount }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
