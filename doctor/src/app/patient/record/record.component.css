@@ -1,0 +1,301 @@
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.document-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(2px);
+    z-index: 1000; /* Ensure it's above other content */
+  }
+.container {
+    display: flex;
+    flex: 1;
+}
+
+.popup {
+    background-color: white;
+    border-radius: 15px;
+    padding: 16px;
+    box-shadow: 8px 8px 15px rgb(0, 0, 0);
+    top: 50%;
+    left: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);   
+    width: 50%;
+}     
+
+.form-group {
+    display: flex;
+    margin-bottom: 10 px;
+}
+
+.form-group.two-columns input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    margin: 4px;
+}
+
+.form-group input,
+.form-group textarea {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 7px;
+    margin: 4px;
+    resize: vertical;
+}
+
+.input-container {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.input-container input {
+    width: 100%;
+    padding-right: 10px;
+}
+
+.file-input {
+  display: none;
+}
+
+/* Apply left padding only if an icon exists */
+.input-container.has-icon input {
+    padding-left: 40px;
+}
+
+.input-container i {
+    background-color: #ffffff00;
+    position: absolute;
+    left: 10px;
+    font-size: 18px;
+    color: #888;
+    pointer-events: none; /* Prevent clicking */
+}
+
+/* Responsive design */
+@media (max-width: 890px) {
+    .form-group {
+        display: block;
+    }
+    .form-group input {
+        width: 100%;
+    }
+    .input-container {
+        margin-right: -9px;
+    }
+        .form-group.two-columns {
+        flex-direction: column;
+    }
+
+    .form-group.two-columns input {
+        width: 100%;
+    }
+}
+
+.responsive-textarea {
+    width: 100%;
+    min-height: 150px;
+    max-height: 330px;
+    padding: 10px;
+    resize: vertical; /* Allows users to resize */
+    border: 1px solid #ccc;
+}
+
+.add-document {
+    background-color: #0000ff1a;
+    border: 2px solid #206433;
+    width: 40%;
+    height: 60px;
+    position: relative;
+    left: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.add-document.drag-over {
+    background: #277c3f4a;
+}
+
+.icon-container {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 35px;
+}
+
+.buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: end;
+    right: 5px;
+    gap: 10px;
+}
+
+.buttons button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.cancel {
+    background-color: #cccccc;
+}
+.cancel:hover{
+    background-color: #e6e6e6;
+}
+
+.continue {
+    background-color: #575799;
+    color: white;
+}
+.continue:hover {
+    color: white;
+    background-color: #6a6ab0; 
+}
+
+body.modal-open {
+    overflow: hidden; /* Prevent scrolling when modal is open */
+}
+
+.icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    max-width: 100%;
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.icon-container i {
+    font-size: 30px;
+    flex-shrink: 0; /* Prevents the icon from shrinking */
+}
+
+.icon-container span {
+    font-size: 17px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 100%;
+}
+
+.file-upload {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #4caf50;
+  color: white;
+  padding: 12px 24px;   /* 👈 change this for container size */
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  gap: 8px;
+
+  mat-icon {
+    font-size: 28px;   /* 👈 change this for icon size */
+    width: 28px;
+    height: 28px;
+  }
+
+  input[type="file"] {
+    display: none;   /* hide the ugly default button */
+  }
+}
+
+.selected-files {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.file-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #eef3ff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+.file-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.file-info i {
+  color: #206433;
+  font-size: 20px;
+}
+
+.file-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.view-btn,
+.remove-file {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 18px;
+  transition: transform 0.2s ease;
+}
+
+.view-btn:hover {
+  color: #0056b3;
+  transform: scale(1.2);
+}
+
+.remove-file:hover {
+  color: #d9534f;
+  transform: scale(1.2);
+}
+
+
+
+/* Responsive Fix */
+@media (max-width: 890px) {
+    .add-document {
+        width: 90%; /* Make it more responsive */
+        left: 5%; /* Center it properly */
+    }
+    
+    .icon-container {
+        font-size: 15px; /* Reduce font size for smaller screens */
+    }
+    
+    .icon-container span {
+        max-width: 40%; /* Reduce width for smaller screens */
+    }
+}

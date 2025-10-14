@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from '../../sidebar/sidebar.component';
 import { PatientCardComponent } from '../patient-card/patient-card.component';
+import { RecordComponent } from '../record/record.component'; // Import RecordComponent
 
 @Component({
   selector: 'app-patients',
   standalone: true,
-  imports: [CommonModule, SidebarComponent, PatientCardComponent],
+  imports: [CommonModule, SidebarComponent, PatientCardComponent, RecordComponent], // Add RecordComponent here
   templateUrl: './patients.component.html',
   styleUrls: ['./patients.component.css']
 })
@@ -91,16 +92,17 @@ export class PatientsComponent {
     }
   ];
 
-  // patients currently displayed (after search/filter)
   displayedPatients = [...this.patients];
 
+  // State for the pop-up
+  isRecordPopupVisible = false;
+  selectedPatient: any = null;
+
   ngOnInit() {
-    // sort alphabetically on init
     this.patients.sort((a, b) => a.name.localeCompare(b.name));
     this.displayedPatients = [...this.patients];
   }
 
-  // SEARCH
   searchData(query: string) {
     query = query.toLowerCase().trim();
     this.displayedPatients = this.patients.filter(p =>
@@ -109,8 +111,21 @@ export class PatientsComponent {
     );
   }
 
-  // SHOW PATIENT DATA
+  closeRecordPopup() {
+    this.isRecordPopupVisible = false;
+    this.selectedPatient = null;
+  }
+
+  handleSave() {
+    this.closeRecordPopup(); // Close pop-up on save
+  }
+
+  handleCancel() {
+    this.closeRecordPopup(); // Close pop-up on cancel
+  }
+
   showPatientData(patient: any) {
-    console.log('Patient data:', patient);
+    this.selectedPatient = patient;
+    this.isRecordPopupVisible = true;
   }
 }

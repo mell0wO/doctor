@@ -1,1 +1,72 @@
-<p>record works!</p>
+<div class="document-overlay">
+  <div class="container">
+    <section class="popup">
+      <h2 class="text-center mb-4">{{ title }}</h2>
+      <form>
+        <!-- Nom & Profession -->
+        <div class="form-group two-columns">
+          <input type="text" placeholder="Nom">
+          <input type="text" placeholder="Profession">
+        </div>
+
+        <!-- Téléphone & Adresse -->
+        <div class="form-group two-columns">
+          <input type="tel" placeholder="Téléphone">
+          <input type="text" placeholder="Adresse">
+        </div>
+
+        <!-- État de santé -->
+        <div class="form-group">
+          <textarea placeholder="État de santé" class="responsive-textarea"></textarea>
+        </div>
+
+        <!-- Upload box -->
+        <div class="add-document"
+            (click)="fileInput.click()"
+            (dragover)="onDragOver($event)" 
+            (drop)="onDrop($event)"
+            (dragleave)="onDragLeave($event)"
+            [class.drag-over]="isDragOver">
+            
+        <div class="icon-container"> 
+            <i class="bi bi-file-earmark-plus"></i>
+            <span class="placeholder-text">Sélectionner des fichiers</span>
+        </div>
+
+        <input 
+            type="file" 
+            (change)="onFileSelected($event)" 
+            class="file-input" 
+            #fileInput 
+            multiple>
+        </div>
+
+        <!-- List of selected files -->
+        <div class="selected-files" *ngIf="selectedFiles.length > 0">
+        <div class="file-item" *ngFor="let file of selectedFiles; let i = index">
+            <div class="file-info">
+            <i [ngClass]="getFileIcon(file.name.split('.').pop())"></i>
+            <span>{{ file.name }}</span>
+            </div>
+            <div class="file-actions">
+                    <button class="view-btn" (click)="viewFile(file)">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                    <!-- Delete button -->
+                    <button class="remove-file" (click)="removeFile(i)">
+                        <i class="bi bi-trash"></i>
+                    </button>
+            </div>
+        </div>
+        </div>
+
+      <div class="buttons">
+        <button type="button" class="continue" (click)="saveRecord()">Enregistrer</button>
+        <button type="button" class="cancel" (click)="cancelRecord()">Annuler</button>
+      </div>
+
+
+      </form>
+    </section>
+  </div>
+</div>

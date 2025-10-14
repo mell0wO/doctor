@@ -1,84 +1,86 @@
-<div class="finance-container">
+<div class="finance-layout">
+  <!-- Sidebar -->
+  <app-sidebar class="sidebar"></app-sidebar>
 
-  <!-- KPI Cards -->
-  <div class="kpi-cards">
-    <div class="kpi-card">
-      <h3>Débit</h3>
-      <p>{{ debit | number }} DT</p>
-    </div>
-    <div class="kpi-card">
-      <h3>Crédit</h3>
-      <p>{{ credit | number }} DT</p>
-    </div>
-    <div class="kpi-card">
-      <h3>Profit</h3>
-      <p>{{ profit | number }} DT</p>
-    </div>
-  </div>
-
-  <!-- Sales & Purchases Chart -->
-  <div class="chart-container">
-    <h4>Sales & Purchases</h4>
-    <canvas id="financeChart"></canvas>
-    <div class="tabs">
-      <span class="active">Day</span>
-      <span>Week</span>
-      <span>Month</span>
-      <span>Year</span>
-    </div>
-  </div>
-
-  <!-- Tables -->
-  <div class="tables">
-    <!-- Billings -->
-    <div class="table-card">
-      <h4>Billings</h4>
-      <table>
-        <thead>
-          <tr>
-            <th>Libellé</th>
-            <th>Id</th>
-            <th>Date</th>
-            <th>Status</th>
-            <th>Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let b of billings">
-            <td>{{ b.label }}</td>
-            <td>{{ b.id }}</td>
-            <td>{{ b.date }}</td>
-            <td><span class="status" [ngClass]="b.status">{{ b.status }}</span></td>
-            <td>{{ b.amount }}</td>
-          </tr>
-        </tbody>
-      </table>
+  <!-- Main Finance Content -->
+  <main class="finance-main">
+    <div class="finance-header">
+      <h1>Financement</h1>
     </div>
 
-    <!-- Quotes -->
-    <div class="table-card">
-      <h4>Quotes</h4>
-      <table>
-        <thead>
-          <tr>
-            <th>Libellé</th>
-            <th>Id</th>
-            <th>Date</th>
-            <th>Status</th>
-            <th>Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let q of quotes">
-            <td>{{ q.label }}</td>
-            <td>{{ q.id }}</td>
-            <td>{{ q.date }}</td>
-            <td><span class="status" [ngClass]="q.status">{{ q.status }}</span></td>
-            <td>{{ q.amount }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+    <!-- KPI + Chart Section -->
+    <div class="finance-dashboard">
+      <!-- KPI Cards -->
+      <div class="kpi-cards">
+        <div class="kpi-card">
+          <h3>Débit</h3>
+          <p>{{ debit | number }} DT</p>
+        </div>
+        <div class="kpi-card">
+          <h3>Crédit</h3>
+          <p>{{ credit | number }} DT</p>
+        </div>
+        <div class="kpi-card">
+          <h3>Profit</h3>
+          <p>{{ profit | number }} DT</p>
+        </div>
+      </div>
 
+      <!-- Débit & Crédit Chart -->
+      <div class="chart-container">
+        <canvas #financeChart></canvas>
+      </div>
+    </div>
+
+    <!-- Tables -->
+    <div class="tables">
+      <!-- Débit -->
+      <div class="table-card">
+        <div class="table-header">
+          <h4>Débit</h4>
+          <button class="add-btn" (click)="addDebit()">+</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Libellé</th>
+              <th>Date</th>
+              <th>Montant</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let b of billings">
+              <td>{{ b.label }}</td>
+              <td>{{ b.date }}</td>
+              <td>{{ b.amount }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Crédit -->
+      <div class="table-card">
+        <div class="table-header">
+          <h4>Crédit</h4>
+          <button class="add-btn" (click)="addCredit()">+</button>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Libellé</th>
+              <th>Date</th>
+              <th>Montant</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let q of quotes">
+              <td>{{ q.label }}</td>
+              <td>{{ q.date }}</td>
+              <td>{{ q.amount }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
 </div>

@@ -18,6 +18,16 @@
         <app-patient-card [patient]="p"></app-patient-card>
       </div>
     </div>
-
   </main>
+</div>
+
+<!-- RecordComponent pop-up -->
+<div class="record-popup" *ngIf="isRecordPopupVisible" (click)="closeRecordPopup()">
+  <div class="record-container">
+    <app-record
+      [title]="'Patient Record: ' + selectedPatient?.name"
+      (cancel)="handleCancel()"
+      (save)="handleSave()">
+    </app-record>
+  </div>
 </div>
