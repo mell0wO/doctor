@@ -1,24 +1,24 @@
 <div class="document-overlay">
   <div class="container">
     <section class="popup">
-      <h2 class="text-center mb-4">{{ title }}</h2>
-      <form>
-        <!-- Nom & Profession -->
+      <h2 class="text-center mb-4">{{ title || (form.name ? 'Record — ' + form.name : 'Record') }}</h2>
+      <form (ngSubmit)="saveRecord()">
         <div class="form-group two-columns">
-          <input type="text" placeholder="Nom">
-          <input type="text" placeholder="Profession">
+          <input name="name" type="text" placeholder="Nom" [(ngModel)]="form.name">
+          <input name="profession" type="text" placeholder="Profession" [(ngModel)]="form.profession">
         </div>
 
         <!-- Téléphone & Adresse -->
         <div class="form-group two-columns">
-          <input type="tel" placeholder="Téléphone">
-          <input type="text" placeholder="Adresse">
+          <input name="phone" type="tel" placeholder="Téléphone" [(ngModel)]="form.phone">
+          <input name="address" type="text" placeholder="Adresse" [(ngModel)]="form.address">
         </div>
 
         <!-- État de santé -->
         <div class="form-group">
-          <textarea placeholder="État de santé" class="responsive-textarea"></textarea>
+          <textarea name="healthStatus" placeholder="État de santé" class="responsive-textarea" [(ngModel)]="form.healthStatus"></textarea>
         </div>
+
 
         <!-- Upload box -->
         <div class="add-document"
@@ -27,13 +27,12 @@
             (drop)="onDrop($event)"
             (dragleave)="onDragLeave($event)"
             [class.drag-over]="isDragOver">
-            
-        <div class="icon-container"> 
+          <div class="icon-container"> 
             <i class="bi bi-file-earmark-plus"></i>
             <span class="placeholder-text">Sélectionner des fichiers</span>
-        </div>
+          </div>
 
-        <input 
+          <input 
             type="file" 
             (change)="onFileSelected($event)" 
             class="file-input" 
@@ -41,31 +40,52 @@
             multiple>
         </div>
 
-        <!-- List of selected files -->
-        <div class="selected-files" *ngIf="selectedFiles.length > 0">
-        <div class="file-item" *ngFor="let file of selectedFiles; let i = index">
+        <div class="selected-files" *ngIf="allFiles.length > 0">
+          <div class="file-item" *ngFor="let file of allFiles; let i = index">
+
             <div class="file-info">
-            <i [ngClass]="getFileIcon(file.name.split('.').pop())"></i>
-            <span>{{ file.name }}</span>
-            </div>
+              <i [ngClass]="getFileIcon(file.extension)"></i>
+              <span>{{ file.name }}</span>
+            </div>  
+
             <div class="file-actions">
-                    <button class="view-btn" (click)="viewFile(file)">
-                        <i class="bi bi-eye"></i>
-                    </button>
-                    <!-- Delete button -->
-                    <button class="remove-file" (click)="removeFile(i)">
-                        <i class="bi bi-trash"></i>
-                    </button>
+              <!-- EXISTING FILE -->
+              <button *ngIf="file.type === 'existing'" type="button"
+                      class="view-btn" (click)="openDocument(file.url)">
+                <i class="bi bi-eye"></i>
+              </button>
+
+              <button *ngIf="file.type === 'existing'"
+                      type="button"
+                      class="remove-file"
+                      (click)="deleteExisting(i)">
+                <i class="bi bi-trash"></i>
+              </button>
+
+
+              <!-- NEW FILE -->
+              <button *ngIf="file.type === 'new'" type="button"
+                      class="view-btn" (click)="viewFile(file.file!)">
+                <i class="bi bi-eye"></i>
+              </button>
+
+              <button *ngIf="file.type === 'new'"
+                      type="button"
+                      class="remove-file"
+                      (click)="removeFile(i)">
+                <i class="bi bi-trash"></i>
+              </button>
+
             </div>
+
+          </div>
         </div>
+
+
+        <div class="buttons">
+          <button type="submit">Save</button>
+          <button type="button" (click)="cancelRecord()">Cancel</button>
         </div>
-
-      <div class="buttons">
-        <button type="button" class="continue" (click)="saveRecord()">Enregistrer</button>
-        <button type="button" class="cancel" (click)="cancelRecord()">Annuler</button>
-      </div>
-
-
       </form>
     </section>
   </div>

@@ -7,7 +7,11 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 @Component({
   selector: 'app-calendar',
   standalone: true,
-  imports: [CommonModule, CalendarModule, SidebarComponent],
+  imports: [
+    CommonModule,
+    CalendarModule,
+    SidebarComponent
+  ],
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css'],
   providers: [

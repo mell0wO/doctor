@@ -5,27 +5,10 @@ import { FinanceComponent } from './finance/finance.component';
 import { RecordComponent } from './patient/record/record.component';
 
 export const routes: Routes = [
-    {
-        path: '',
-        redirectTo: 'home', 
-        pathMatch: 'full'  
-    },
-    {
-        path: 'patients',
-        component: PatientsComponent 
-    },
-        {
-        path: 'calendar',
-        component: CalendarComponent 
-    },
-
-    {
-        path: 'finance',
-        component: FinanceComponent 
-    },
-
-        {
-        path: 'records',
-        component: RecordComponent 
-    },
+  { path: '', redirectTo: 'patients', pathMatch: 'full' },
+  { path: 'patients', component: PatientsComponent },
+  { path: 'calendar', component: CalendarComponent },
+  { path: 'finance', component: FinanceComponent },
+  { path: 'records', component: RecordComponent },
+  { path: '**', redirectTo: 'patients' }  // catch-all fallback
 ];

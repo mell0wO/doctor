@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-patient-card',
@@ -10,8 +10,18 @@ export class PatientCardComponent {
   @Input() patient!: {
     id: number;
     name: string;
-    birthDate: string;
-    lastVisit: string;
+    profession: string;
     phone: string;
+    address: string;
+    // Keep existing fields if needed elsewhere
+    birthDate?: string;
+    lastVisit?: string;
   };
+
+  @Output() select = new EventEmitter<any>(); 
+  
+  onClick(): void {
+    console.log('PatientCard clicked — emitting patient:', this.patient);
+    this.select.emit(this.patient);
+  }
 }

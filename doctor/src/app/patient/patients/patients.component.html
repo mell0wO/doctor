@@ -6,28 +6,34 @@
       <h1>Patients</h1>
 
       <div class="searchBox">
-        <i class="bi bi-search"></i>
-        <input type="text" placeholder="Rechercher"
-        #searchInput  
-        (input)="searchData(searchInput.value)"/>
+        <div class="add-btn-container">
+          <button class="add-btn" (click)="addPatient()">+</button>
+        </div>
+        <div class="search-input-container">
+          <i class="bi bi-search"></i>
+          <input type="text" placeholder="Rechercher"
+          #searchInput  
+          (input)="searchData(searchInput.value)"/>
+        </div>
       </div>
     </div>
 
-    <div class="patients-grid">
-      <div *ngFor="let p of displayedPatients" (click)="showPatientData(p)">
-        <app-patient-card [patient]="p"></app-patient-card>
-      </div>
-    </div>
-  </main>
+<!-- ...existing code... -->
+<div class="patients-grid">
+  <ng-container *ngFor="let p of displayedPatients">
+    <app-patient-card
+      [patient]="p"
+      (select)="showPatientData($event)">
+    </app-patient-card>
+  </ng-container>
 </div>
 
-<!-- RecordComponent pop-up -->
-<div class="record-popup" *ngIf="isRecordPopupVisible" (click)="closeRecordPopup()">
-  <div class="record-container">
-    <app-record
-      [title]="'Patient Record: ' + selectedPatient?.name"
-      (cancel)="handleCancel()"
-      (save)="handleSave()">
-    </app-record>
-  </div>
+<!-- ...existing code... -->
+<div *ngIf="isRecordPopupVisible" class="record-popup">
+  <app-record
+    [patient]="selectedPatient"
+    (save)="handleSave($event)"
+    (cancel)="handleCancel()">
+  </app-record>
 </div>
+<!-- ...existing code... -->

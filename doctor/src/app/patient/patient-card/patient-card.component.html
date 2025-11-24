@@ -1,8 +1,13 @@
-<div class="patient-card">
-  <h3>{{ patient.name }}</h3>
+<div class="patient-card" (click)="onClick()" tabindex="0" role="button" style="cursor:pointer;">
+  <h3>{{ patient.name || 'No Name' }}</h3>
   <div class="divider"></div>
-  <p><strong>ID:</strong> {{ patient.id }}</p>
-  <p><strong>Date de naissance:</strong> {{ patient.birthDate }}</p>
-  <p><strong>Last visit:</strong> {{ patient.lastVisit }}</p>
-  <p><strong>Phone:</strong> {{ patient.phone }}</p>
+  
+  <!-- Profession -->
+  <p><strong>Profession:</strong> {{ patient.profession || 'Not specified' }}</p>
+  
+  <!-- Telephone -->
+  <p><strong>Téléphone:</strong> {{ patient.phone || 'No phone' }}</p>
+  
+  <!-- Address -->
+  <p><strong>Adresse:</strong> {{ patient.address || 'No address' }}</p>
 </div>
