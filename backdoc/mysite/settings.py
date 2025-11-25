@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     # your apps
     'myapp',      # keep your existing app(s)
     'patients',   # we will create this app
+    'finance',    # finance app
 ]
 
 

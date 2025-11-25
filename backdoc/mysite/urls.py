@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path ('', include('myapp.urls')),  # Include URLs from myapp
     path('pat/', include('patients.urls')),
+    path('finance/', include('finance.urls')),
 ]
 
 if settings.DEBUG:

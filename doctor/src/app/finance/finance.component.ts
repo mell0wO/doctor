@@ -1,8 +1,9 @@
-import { Component, AfterViewInit, ViewChild, ElementRef, PLATFORM_ID, Inject } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, PLATFORM_ID, Inject, OnInit } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Chart } from 'chart.js/auto';
 import { CommonModule } from '@angular/common';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { FinanceService } from '../../../services/finance.service';
 
 @Component({
   selector: 'app-finance',
@@ -11,52 +12,59 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
   templateUrl: './finance.component.html',
   styleUrls: ['./finance.component.css']
 })
-export class FinanceComponent implements AfterViewInit {
+export class FinanceComponent implements OnInit, AfterViewInit {
+
   @ViewChild('financeChart') financeChart!: ElementRef<HTMLCanvasElement>;
 
-  debit = 0;
-  credit = 0;
-  profit = 0;
-
-  // Define billings and quotes as empty arrays initially
+  Debit: any[] = [];
+  Credit: any[] = [];
   billings: any[] = [];
   quotes: any[] = [];
+  debit: number = 0;
+  credit: number = 0;
+  profit: number = 0;
 
-  Debit = [
-  { label: 'Rent Payment', id: '2025-001', date: '08/01/2025', status: 'Paid', amount: '1 200 DT' },
-  { label: 'Office Supplies', id: '2025-002', date: '09/01/2025', status: 'Paid', amount: '300 DT' },
-  { label: 'Electricity Bill', id: '2025-003', date: '11/01/2025', status: 'Pending', amount: '500 DT' },
-  { label: 'Internet Subscription', id: '2025-004', date: '15/01/2025', status: 'Paid', amount: '100 DT' },
-  ];
+  constructor(
+    private financeService: FinanceService, // Remove HttpClient from here
+    @Inject(PLATFORM_ID) private platformId: any
+  ) {}
 
-  Credit = [
-    { label: 'Client Payment A', id: '2025-101', date: '08/01/2025', status: 'Received', amount: '2 000 DT' },
-    { label: 'Client Payment B', id: '2025-102', date: '10/01/2025', status: 'Pending', amount: '1 500 DT' },
-    { label: 'Client Payment C', id: '2025-103', date: '12/01/2025', status: 'Received', amount: '800 DT' },
-    { label: 'Client Payment D', id: '2025-104', date: '18/01/2025', status: 'Pending', amount: '1 200 DT' },
-  ];
-
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
-    // Initialize billings and quotes here
-    this.billings = this.Debit;
-    this.quotes = this.Credit;
+  ngOnInit() {
+    this.loadData();
   }
 
-  ngAfterViewInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.updateTotals();
-      this.renderChart();
-    }
+  ngAfterViewInit(): void {}
+
+  loadData() {
+    this.financeService.getEntries().subscribe({
+      next: (entries: any) => {
+        this.Debit = entries.filter((e: any) => e.entry_type === 'debit');
+        this.Credit = entries.filter((e: any) => e.entry_type === 'credit');
+
+        this.billings = this.Debit;
+        this.quotes = this.Credit;
+
+        this.updateTotals();
+
+        if (isPlatformBrowser(this.platformId)) {
+          this.renderChart();
+        }
+      },
+      error: (error) => {
+        console.error('Error loading data:', error);
+      }
+    });
   }
 
-  private formatDate(date: Date): string {
-    const day = String(date.getDate()).padStart(2, '0');
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
+  private formatDateForBackend(date: Date): string {
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
   }
 
-  private parseAmount(amt: string): number {
+  private parseAmount(amt: string | number): number {
+    if (typeof amt === 'number') return amt;
     return parseFloat(amt.replace(/\s|DT/g, '').replace(',', '.')) || 0;
   }
 
@@ -72,43 +80,37 @@ export class FinanceComponent implements AfterViewInit {
       return;
     }
 
-    const existingChart = Chart.getChart(this.financeChart.nativeElement);
-    if (existingChart) existingChart.destroy();
+    const existing = Chart.getChart(this.financeChart.nativeElement);
+    if (existing) existing.destroy();
 
-    // Group Debit and Credit data by date
-    const groupedData: { [key: string]: { debit: number; credit: number } } = {};
+    const grouped: any = {};
 
-    this.Debit.forEach(entry => {
-      const date = entry.date;
-      const amount = this.parseAmount(entry.amount);
-      if (!groupedData[date]) {
-        groupedData[date] = { debit: 0, credit: 0 };
-      }
-      groupedData[date].debit += amount;
+    this.Debit.forEach(e => {
+      const date = e.date;
+      const amount = this.parseAmount(e.amount);
+      if (!grouped[date]) grouped[date] = { debit: 0, credit: 0 };
+      grouped[date].debit += amount;
     });
 
-    this.Credit.forEach(entry => {
-      const date = entry.date;
-      const amount = this.parseAmount(entry.amount);
-      if (!groupedData[date]) {
-        groupedData[date] = { debit: 0, credit: 0 };
-      }
-      groupedData[date].credit += amount;
+    this.Credit.forEach(e => {
+      const date = e.date;
+      const amount = this.parseAmount(e.amount);
+      if (!grouped[date]) grouped[date] = { debit: 0, credit: 0 };
+      grouped[date].credit += amount;
     });
 
-    // Prepare data for the chart
-    const labels = Object.keys(groupedData).sort(); // Sort dates for chronological order
-    const dailyDebit = labels.map(date => groupedData[date].debit);
-    const dailyCredit = labels.map(date => groupedData[date].credit);
+    const labels = Object.keys(grouped).sort();
+    const dailyDebit = labels.map(d => grouped[d].debit);
+    const dailyCredit = labels.map(d => grouped[d].credit);
 
     new Chart(this.financeChart.nativeElement, {
       type: 'line',
       data: {
-        labels, // X-axis labels (dates)
+        labels,
         datasets: [
           {
             label: 'Débit',
-            data: dailyDebit, // Data points for "Débit"
+            data: dailyDebit,
             borderColor: '#009E73',
             backgroundColor: 'rgba(255, 77, 79, 0.2)',
             fill: false,
@@ -116,7 +118,7 @@ export class FinanceComponent implements AfterViewInit {
           },
           {
             label: 'Crédit',
-            data: dailyCredit, // Data points for "Crédit"
+            data: dailyCredit,
             borderColor: '#D55E00',
             backgroundColor: 'rgba(82, 196, 26, 0.2)',
             fill: false,
@@ -126,47 +128,66 @@ export class FinanceComponent implements AfterViewInit {
       },
       options: {
         responsive: true,
-        plugins: {
-          legend: { display: true }
-        },
-        scales: {
-          y: { beginAtZero: true }
-        }
+        plugins: { legend: { display: true } },
+        scales: { y: { beginAtZero: true } }
       }
     });
   }
 
   addDebit() {
     const label = prompt('Enter libellé for Débit:');
-    const amount = prompt('Enter montant for Débit (DT):');
+    const amount = prompt('Enter montant for Débit:');
 
     if (label && amount) {
-      this.Debit.push({
-        label,
-        id: 'D-' + Date.now(),
-        date: this.formatDate(new Date()),
+      const entryData = {
+        entry_type: 'debit',
+        label: label,
+        entry_id: 'D-' + Date.now(),
+        date: this.formatDateForBackend(new Date()),
         status: 'Pending',
-        amount: amount + ' DT'
+        amount: parseFloat(amount)
+      };
+
+      this.financeService.addEntry(entryData).subscribe({
+        next: () => this.loadData(),
+        error: (error) => console.error('Error adding debit:', error)
       });
-      this.updateTotals();
-      this.renderChart();
     }
   }
 
   addCredit() {
     const label = prompt('Enter libellé for Crédit:');
-    const amount = prompt('Enter montant for Crédit (DT):');
+    const amount = prompt('Enter montant for Crédit:');
 
     if (label && amount) {
-      this.Credit.push({
-        label,
-        id: 'C-' + Date.now(),
-        date: this.formatDate(new Date()),
+      const entryData = {
+        entry_type: 'credit',
+        label: label,
+        entry_id: 'C-' + Date.now(),
+        date: this.formatDateForBackend(new Date()),
         status: 'Pending',
-        amount: amount + ' DT'
+        amount: parseFloat(amount)
+      };
+
+      this.financeService.addEntry(entryData).subscribe({
+        next: () => this.loadData(),
+        error: (error) => console.error('Error adding credit:', error)
       });
-      this.updateTotals();
-      this.renderChart();
     }
   }
-}
+
+  deleteEntry(id: string) {
+    if (confirm('Are you sure you want to delete this entry?')) {
+      console.warn('Delete endpoint not implemented yet');
+    }
+  }
+
+  editEntry(entry: any) {
+    const newLabel = prompt('Enter new libellé:', entry.label);
+    const newAmount = prompt('Enter new montant:', entry.amount.toString());
+
+    if (newLabel && newAmount) {
+      console.warn('Update endpoint not implemented yet');
+    }
+  }
+} 
