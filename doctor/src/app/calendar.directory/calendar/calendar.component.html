@@ -1,0 +1,100 @@
+<div class="calendar-layout">
+  <app-sidebar class="sidebar"></app-sidebar>
+
+  <div class="calendar-main">
+
+    <div class="calendar-controls">
+      <!-- Left buttons -->
+      <div class="calendar-left">
+        <button
+          class="calendar-btn"
+          mwlCalendarPreviousView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay()">
+          Précédent
+        </button>
+
+        <button
+          class="calendar-btn"
+          mwlCalendarToday
+          [(viewDate)]="viewDate">
+          Aujourd'hui
+        </button>
+
+        <button
+          class="calendar-btn"
+          mwlCalendarNextView
+          [view]="view"
+          [(viewDate)]="viewDate"
+          (viewDateChange)="closeOpenMonthViewDay()">
+          Suivant
+        </button>
+      </div>
+
+      <!-- Date in center -->
+      <h3 class="calendar-title">
+        {{ viewDate | date:'fullDate':'':'fr' }}
+      </h3>
+
+      <!-- Right buttons -->
+      <div class="calendar-right">
+        <button
+          class="calendar-btn"
+          (click)="setView(CalendarView.Month)"
+          [class.active]="view === CalendarView.Month">
+          Mois
+        </button>
+
+        <button
+          class="calendar-btn"
+          (click)="setView(CalendarView.Week)"
+          [class.active]="view === CalendarView.Week">
+          Semaine
+        </button>
+
+        <button
+          class="calendar-btn"
+          (click)="setView(CalendarView.Day)"
+          [class.active]="view === CalendarView.Day">
+          Jour
+        </button>
+      </div>
+    </div>
+
+    <div class="calendar-container">
+
+      <mwl-calendar-month-view
+        *ngIf="view === CalendarView.Month"
+        [viewDate]="viewDate"
+        [events]="events"
+        (dayClicked)="dayClicked($event.day)">
+      </mwl-calendar-month-view>
+
+      <mwl-calendar-week-view
+        *ngIf="view === CalendarView.Week"
+        [viewDate]="viewDate"
+        [events]="events"
+        (hourSegmentClicked)="goToDay($event)"
+        (eventClicked)="onEventClicked($event)"
+        (hourSegmentDoubleClicked)="onDoubleClick($event)">
+      </mwl-calendar-week-view>
+
+      <mwl-calendar-day-view
+        *ngIf="view === CalendarView.Day"
+        [viewDate]="viewDate"
+        [events]="events"
+        (hourSegmentClicked)="onHourSegmentClicked($event)"
+        (eventClicked)="onEventClicked($event)">
+      </mwl-calendar-day-view>
+
+    </div>
+  </div>
+</div>
+
+<!-- ✅ SEARCH POPUP (REPLACES prompt) -->
+<app-search
+  *ngIf="showSearch"
+  (confirm)="onRecordSelected($event)"
+  (cancel)="onSearchCancel()">
+</app-search>

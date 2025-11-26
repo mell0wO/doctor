@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class RecordComponent implements OnChanges {
 
-  @Input() title: string = '';
+  @Input() title: string | null = null;
   @Input() link: string = ''; 
   @Input() patient: any = null;
 

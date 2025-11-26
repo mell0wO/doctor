@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { PatientsComponent } from './patient/patients/patients.component';
-import { CalendarComponent } from './calendar/calendar.component';
+import { CalendarComponent } from './calendar.directory/calendar/calendar.component';
 import { FinanceComponent } from './finance/finance.component';
 import { RecordComponent } from './patient/record/record.component';
 

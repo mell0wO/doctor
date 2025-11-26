@@ -19,6 +19,7 @@
     backdrop-filter: blur(2px);
     z-index: 1000; /* Ensure it's above other content */
   }
+  
 .container {
     display: flex;
     flex: 1;

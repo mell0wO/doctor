@@ -1,7 +1,7 @@
 <div class="document-overlay">
   <div class="container">
     <section class="popup">
-      <h2 class="text-center mb-4">{{ title || (form.name ? 'Record — ' + form.name : 'Record') }}</h2>
+      <h2 class="text-center mb-4">{{ title || (form.name ? '' + form.name : '') }}</h2>
       <form (ngSubmit)="saveRecord()">
         <div class="form-group two-columns">
           <input name="name" type="text" placeholder="Nom" [(ngModel)]="form.name">
@@ -83,9 +83,10 @@
 
 
         <div class="buttons">
-          <button type="submit">Save</button>
-          <button type="button" (click)="cancelRecord()">Cancel</button>
+          <button type="submit" class="continue">Enregistrer</button>
+          <button type="button" class="cancel" (click)="cancelRecord()">Annuler</button>
         </div>
+
       </form>
     </section>
   </div>
