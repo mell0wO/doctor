@@ -31,7 +31,7 @@ export class PatientsComponent implements OnInit {
       this.patientsService.list().subscribe({
         next: (data: any[]) => {
           this.patients = Array.isArray(data) ? data : [];
-          this.patients.sort((a, b) => (a?.name || '').localeCompare(b?.name || ''));
+          this.patients.sort((a, b) => (a?.nom || '').localeCompare(b?.nom || ''));
           this.displayedPatients = [...this.patients];
         },
         error: (err: unknown) => {

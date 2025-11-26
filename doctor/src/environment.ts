@@ -4,4 +4,4 @@ export const environment = {
   apiUrlf: 'http://127.0.0.1:8000/finance',
   apiUrla: 'http://127.0.0.1:8000/appointments/'
 
-};
+};  
