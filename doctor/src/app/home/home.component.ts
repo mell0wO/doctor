@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef  } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalendarModule, CalendarView } from 'angular-calendar';
 import { SidebarComponent } from '../sidebar/sidebar.component';
@@ -18,7 +18,6 @@ import { PatientsService } from '../../../services/patients.service';
     PatientCardComponent,
     RecordComponent
   ],
-  // providers: [PatientsService],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
@@ -48,6 +47,9 @@ export class HomeComponent implements OnInit {
   selectedPatient: any = null;
   isRecordPopupVisible: boolean = false;
 
+  /** Patients with appointment today */
+  todayPatientNames: string[] = [];
+
   ngOnInit(): void {
     this.loadTodayAppointments();
     this.loadFinanceData();
@@ -61,20 +63,26 @@ export class HomeComponent implements OnInit {
 
     this.appointmentService.getAppointments().subscribe({
       next: (data) => {
-        this.events = data
-          .filter(a => {
-            const start = new Date(a.start);
-            return (
-              start.getFullYear() === today.getFullYear() &&
-              start.getMonth() === today.getMonth() &&
-              start.getDate() === today.getDate()
-            );
-          })
-          .map(a => ({
-            title: a.patient_name,
-            start: new Date(a.start),
-            end: new Date(a.end),
-          }));
+        const todays = data.filter(a => {
+          const start = new Date(a.start);
+          return (
+            start.getFullYear() === today.getFullYear() &&
+            start.getMonth() === today.getMonth() &&
+            start.getDate() === today.getDate()
+          );
+        });
+
+        this.events = todays.map(a => ({
+          title: a.patient_name,
+          start: new Date(a.start),
+          end: new Date(a.end),
+        }));
+
+        // store today's patient names
+        this.todayPatientNames = todays.map(a => a.patient_name);
+
+        // filter patients if available
+        this.filterPatientsWithTodayAppointments();
       },
       error: (err) => console.error('Failed to load today appointments:', err)
     });
@@ -105,14 +113,30 @@ export class HomeComponent implements OnInit {
     this.patientsService.list().subscribe({
       next: (data: any[]) => {
         this.patients = data || [];
-        this.patients.sort((a, b) => (a?.nom || '').localeCompare(b?.nom || ''));
-        this.displayedPatients = [...this.patients];
+        this.patients.sort((a, b) => (a?.name || '').localeCompare(b?.name || ''));
+
+        // filter after loading
+        this.filterPatientsWithTodayAppointments();
       },
       error: (err) => console.error('Failed to load patients:', err)
     });
   }
 
+  /** Apply filtering only when both lists are available */
+  filterPatientsWithTodayAppointments() {
+    if (this.patients.length === 0) return;
 
+    if (this.todayPatientNames.length === 0) {
+      this.displayedPatients = [...this.patients];
+      return;
+    }
+
+    this.displayedPatients = this.patients.filter(p =>
+      this.todayPatientNames.includes(p.name)
+    );
+  }
+
+  /* =================== PATIENT POPUP =================== */
   showPatientData(patient: any) {
     if (!patient?.id) {
       this.selectedPatient = patient;
@@ -138,25 +162,19 @@ export class HomeComponent implements OnInit {
 
     if (this.selectedPatient?.id) {
       this.patientsService.update(this.selectedPatient.id, formData).subscribe({
-        next: (response) => {
-          console.log('✅ Updated successfully', response);
+        next: () => {
           this.loadPatients();
           this.isRecordPopupVisible = false;
         },
-        error: (err) => {
-          console.error('❌ Update error:', err);
-        }
+        error: (err) => console.error('❌ Update error:', err)
       });
     } else {
       this.patientsService.create(formData).subscribe({
-        next: (response) => {
-          console.log('✅ Created successfully', response);
+        next: () => {
           this.loadPatients();
           this.isRecordPopupVisible = false;
         },
-        error: (err) => {
-          console.error('❌ Create error:', err);
-        }
+        error: (err) => console.error('❌ Create error:', err)
       });
     }
   }

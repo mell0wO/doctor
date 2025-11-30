@@ -1,0 +1,170 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(2px);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card {
+    background: white;
+    width: 420px;
+    padding: 40px 30px;
+    border-radius: 15px;
+    box-shadow: 8px 8px 15px rgb(0, 0, 0);
+    text-align: center;
+}
+
+.logo {
+    width: 120px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    color: #575799;
+    margin-bottom: 30px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+input[type="email"] {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 7px;
+    border: 1px solid #ccc;
+    margin-top: 20px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    background: #fff;
+    color: #333;
+    line-height: 1.4;
+}
+
+input[type="email"]:focus {
+    border-color: #575799;
+    outline: none;
+}
+
+.password-container {
+    position: relative;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.password-container input {
+    width: 100%;
+    padding: 12px 45px 12px 15px;
+    border-radius: 7px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    box-sizing: border-box;
+    background: #fff;
+    color: #333;
+    line-height: 1.4;
+}
+
+.password-container input:focus {
+    border-color: #575799;
+    outline: none;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #888;
+    font-size: 20px;
+    transition: color 0.3s ease;
+    user-select: none;
+}
+
+.toggle-password:hover {
+    color: #575799;
+}
+
+.remember {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.remember input {
+    margin-right: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.remember span {
+    font-size: 0.9rem;
+    color: #333;
+    line-height: 1.4;
+}
+
+.forgot {
+    display: block;
+    text-align: left;
+    margin-top: 10px;
+    color: #575799;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.forgot:hover {
+    text-decoration: underline;
+    color: #6a6ab0;
+}
+
+.btn {
+    width: 100%;
+    margin-top: 25px;
+    padding: 14px;
+    border: none;
+    border-radius: 7px;
+    background: #575799;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: #6a6ab0;
+}
+
+.signup {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #333;
+    line-height: 1.4;
+}
+
+.signup a {
+    color: #575799;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.signup a:hover {
+    text-decoration: underline;
+    color: #6a6ab0;
+}
+
+/* Responsive design */
+@media (max-width: 890px) {
+    .container {
+        padding: 20px;
+    }
+    
+    .card {
+        width: 90%;
+        padding: 30px 20px;
+    }
+}

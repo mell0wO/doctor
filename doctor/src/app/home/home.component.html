@@ -16,12 +16,12 @@
 
           <div class="kpi-row">
             <div class="kpi-card small">
-              <h3>Débit</h3>
+              <h3>Revenus </h3>
               <p>{{ debit | number }} DT</p>
             </div>
 
             <div class="kpi-card small">
-              <h3>Crédit</h3>
+              <h3>Dépenses </h3>
               <p>{{ credit | number }} DT</p>
             </div>
           </div>
@@ -62,6 +62,9 @@
 
     <!-- RIGHT HALF — Calendar -->
     <div class="calendar-section">
+      <div class="calendar-header">
+        <h2>Calendrier pour {{ viewDate | date: 'EEEE, MMMM d, yyyy' }}</h2>
+      </div>
       <mwl-calendar-day-view
         [viewDate]="viewDate"
         [events]="events">

@@ -1,0 +1,27 @@
+<div class="container">
+    <div class="card">
+        <img src="assets/logo.png" alt="logo" class="logo" />
+        <h2>Se connecter à votre compte</h2>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <input type="email" formControlName="email" placeholder="Email" />
+            
+            <div class="password-container">
+                <input type="password" formControlName="password" placeholder="Mot de passe" id="password" />
+                <span class="toggle-password" (click)="togglePasswordVisibility()">
+                    <i class="bi bi-eye"></i>
+                </span>
+            </div>
+
+            <div class="remember">
+                <input type="checkbox" formControlName="remember" />
+                <span>Rappeler ma préférence</span>
+            </div>
+
+            <a href="#" class="forgot">Mot de passe oublié!</a>
+
+            <button type="submit" class="btn">Se connecter</button>
+        </form>
+        
+    </div>
+</div>

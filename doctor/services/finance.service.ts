@@ -2,15 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../src/environment';
-
 @Injectable({
   providedIn: 'root'
 })
 export class FinanceService {
 
-  private baseUrl = `${environment.apiUrlf}`;
-
-  public apiUrlf = environment.apiUrlf;
+  private baseUrl = environment.api.finance;
 
   constructor(private http: HttpClient) {}
 
@@ -30,7 +27,6 @@ export class FinanceService {
     return this.http.get(`${this.baseUrl}/chart/`);
   }
 
-  // Add these when you implement the endpoints in Django
   deleteEntry(id: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/delete/${id}/`);
   }

@@ -6,9 +6,9 @@ import { Observable } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class AppointmentService {
 
-  private baseUrl = `${environment.apiUrla}`;
+  
 
-  public apiUrl = environment.apiUrla;
+  private apiUrl = environment.api.appointments;
 
   constructor(private http: HttpClient) {}
 

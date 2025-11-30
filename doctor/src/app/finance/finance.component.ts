@@ -109,7 +109,7 @@ export class FinanceComponent implements OnInit, AfterViewInit {
         labels,
         datasets: [
           {
-            label: 'Débit',
+            label: 'Revenus ',
             data: dailyDebit,
             borderColor: '#009E73',
             backgroundColor: 'rgba(255, 77, 79, 0.2)',
@@ -117,7 +117,7 @@ export class FinanceComponent implements OnInit, AfterViewInit {
             tension: 0.4
           },
           {
-            label: 'Crédit',
+            label: 'Dépenses ',
             data: dailyCredit,
             borderColor: '#D55E00',
             backgroundColor: 'rgba(82, 196, 26, 0.2)',
