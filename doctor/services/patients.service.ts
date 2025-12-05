@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class PatientsService {
-  private base = `${environment.apiUrl}/patients/`; 
+  private base = `${environment.api.patients}`;
 
   constructor(private http: HttpClient) {}
 
@@ -25,38 +25,38 @@ export class PatientsService {
   // CREATE methods - Handle both FormData and regular objects
 // ...existing code...
   create(data: FormData | any): Observable<any> {
-    console.log('🟡 CREATE - Sending data to backend:', data);
+    // console.log('🟡 CREATE - Sending data to backend:', data);
     
     if (data instanceof FormData) {
-      console.log('📦 CREATE - FormData contents:');
+      // console.log('📦 CREATE - FormData contents:');
       data.forEach((value, key) => {
         if (value instanceof File) {
-          console.log(`  ${key}: File(${value.name})`);
+          // console.log(`  ${key}: File(${value.name})`);
         } else {
-          console.log(`  ${key}:`, value);
+          // console.log(`  ${key}:`, value);
         }
       });
     } else {
-      console.log('📦 CREATE - Regular object:', data);
+      // console.log('📦 CREATE - Regular object:', data);
     }
     
     return this.http.post<any>(this.base, data);
   }
 
   update(id: number, data: FormData | any): Observable<any> {
-    console.log('🟡 UPDATE - Sending data to backend for ID:', id);
+    // console.log('🟡 UPDATE - Sending data to backend for ID:', id);
     
     if (data instanceof FormData) {
-      console.log('📦 UPDATE - FormData contents:');
+      // console.log('📦 UPDATE - FormData contents:');
       data.forEach((value, key) => {
         if (value instanceof File) {
-          console.log(`  ${key}: File(${value.name})`);
+          // console.log(`  ${key}: File(${value.name})`);
         } else {
-          console.log(`  ${key}:`, value);
+          // console.log(`  ${key}:`, value);
         }
       });
     } else {
-      console.log('📦 UPDATE - Regular object:', data);
+      // console.log('📦 UPDATE - Regular object:', data);
     }
     
     return this.http.patch<any>(`${this.base}${id}/`, data);

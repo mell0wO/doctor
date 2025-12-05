@@ -28,7 +28,7 @@ export class SearchComponent implements OnInit {
       next: (data) => {
         this.records = data;
       },
-      error: (err) => console.error('Failed to load patients:', err)
+      // error: (err) => console.error('Failed to load patients:', err)
     });
   }
 

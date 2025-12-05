@@ -21,7 +21,7 @@ export class PatientCardComponent {
   @Output() select = new EventEmitter<any>(); 
   
   onClick(): void {
-    console.log('PatientCard clicked — emitting patient:', this.patient);
+    // console.log('PatientCard clicked — emitting patient:', this.patient);
     this.select.emit(this.patient);
   }
 }

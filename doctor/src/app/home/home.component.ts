@@ -84,7 +84,7 @@ export class HomeComponent implements OnInit {
         // filter patients if available
         this.filterPatientsWithTodayAppointments();
       },
-      error: (err) => console.error('Failed to load today appointments:', err)
+      // error: (err) => console.error('Failed to load today appointments:', err)
     });
   }
 
@@ -99,7 +99,7 @@ export class HomeComponent implements OnInit {
         this.credit = creditItems.reduce((sum, e) => sum + this.parseAmount(e.amount), 0);
         this.profit = this.debit - this.credit;
       },
-      error: (err) => console.error('Failed to load finance data:', err)
+      // error: (err) => console.error('Failed to load finance data:', err)
     });
   }
 
@@ -118,7 +118,7 @@ export class HomeComponent implements OnInit {
         // filter after loading
         this.filterPatientsWithTodayAppointments();
       },
-      error: (err) => console.error('Failed to load patients:', err)
+      // error: (err) => console.error('Failed to load patients:', err)
     });
   }
 
@@ -150,7 +150,7 @@ export class HomeComponent implements OnInit {
         this.isRecordPopupVisible = true;
       },
       error: () => {
-        console.error('Failed to load patient details');
+        // console.error('Failed to load patient details');
         this.selectedPatient = patient;
         this.isRecordPopupVisible = true;
       }
@@ -158,7 +158,7 @@ export class HomeComponent implements OnInit {
   }
 
   handleSave(formData: FormData) {
-    console.log('🟢 SAVE EVENT FIRED!', formData);
+    // console.log('🟢 SAVE EVENT FIRED!', formData);
 
     if (this.selectedPatient?.id) {
       this.patientsService.update(this.selectedPatient.id, formData).subscribe({
@@ -166,7 +166,7 @@ export class HomeComponent implements OnInit {
           this.loadPatients();
           this.isRecordPopupVisible = false;
         },
-        error: (err) => console.error('❌ Update error:', err)
+        // error: (err) => console.error('❌ Update error:', err)
       });
     } else {
       this.patientsService.create(formData).subscribe({
@@ -174,7 +174,7 @@ export class HomeComponent implements OnInit {
           this.loadPatients();
           this.isRecordPopupVisible = false;
         },
-        error: (err) => console.error('❌ Create error:', err)
+        // error: (err) => console.error('❌ Create error:', err)
       });
     }
   }

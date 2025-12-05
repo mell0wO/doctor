@@ -46,7 +46,7 @@ export class CalendarComponent implements OnInit {
           end: new Date(a.end),
         }));
       },
-      error: (err) => console.error("Failed to load appointments:", err)
+      // error: (err) => console.error("Failed to load appointments:", err)
     });
   }
 
@@ -60,7 +60,7 @@ export class CalendarComponent implements OnInit {
   goToDay(event: { date: Date; sourceEvent: MouseEvent }) {
     this.viewDate = event.date;
     this.view = CalendarView.Day;
-    console.log('Hour segment clicked (week):', event);
+    // console.log('Hour segment clicked (week):', event);
   }
 
   onHourSegmentClicked(event: any) {
@@ -87,7 +87,7 @@ export class CalendarComponent implements OnInit {
           }
         ];
       },
-      error: (err) => console.error("Failed to save appointment:", err)
+      // error: (err) => console.error("Failed to save appointment:", err)
     });
 
     this.showSearch = false;

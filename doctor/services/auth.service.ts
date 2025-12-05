@@ -21,9 +21,8 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  login(email: string, password: string, remember = false): Observable<LoginResponse> {
-    // backend expects "username" (use email as username) or change backend to accept email
-    const payload = { username: email, password };
+  login(username: string, password: string, remember = false): Observable<LoginResponse> {
+    const payload = { username: username, password };
     return this.http.post<LoginResponse>(`${this.apiUrl}/login/`, payload).pipe(
       map(res => {
         const storage = remember ? localStorage : sessionStorage;

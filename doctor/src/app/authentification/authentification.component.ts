@@ -17,7 +17,7 @@ export class AuthentificationComponent {
 
   constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
+      username: ['', Validators.required],
       password: ['', Validators.required],
       remember: [false]
     });
@@ -25,12 +25,14 @@ export class AuthentificationComponent {
 
   onSubmit() {
     if (this.loginForm.invalid) return;
-    const { email, password, remember } = this.loginForm.value;
-    this.auth.login(email, password, remember).subscribe({
-      next: () => this.router.navigate(['/']), // change to your protected route
+
+    const { username, password, remember } = this.loginForm.value;
+
+    this.auth.login(username, password, remember).subscribe({
+      next: () => this.router.navigate(['/']),
       error: (err) => {
-        console.error(err);
-        // show an error to user
+        // console.error(err);
+        // // show error
       }
     });
   }

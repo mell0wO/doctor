@@ -10,7 +10,7 @@ import { PatientsService } from '../../../../services/patients.service';
   selector: 'app-patients',
   standalone: true,
   imports: [CommonModule, SidebarComponent, PatientCardComponent, RecordComponent, HttpClientModule],
-  providers: [PatientsService],
+  // providers: [PatientsService],
   templateUrl: './patients.component.html',
   styleUrls: ['./patients.component.css']
 })
@@ -35,7 +35,7 @@ export class PatientsComponent implements OnInit {
           this.displayedPatients = [...this.patients];
         },
         error: (err: unknown) => {
-          console.error('Failed to load patients', err);
+          // console.error('Failed to load patients', err);
           this.patients = [];
           this.displayedPatients = [];
         }
@@ -66,37 +66,37 @@ export class PatientsComponent implements OnInit {
   
   // In patients.component.ts - FIXED handleSave method
   handleSave(formData: FormData) {
-    console.log('🟢 SAVE EVENT FIRED!', formData);
+    // console.log('🟢 SAVE EVENT FIRED!', formData);
 
     // If patient has an ID → update
     if (this.selectedPatient?.id) {
       const patientId = this.selectedPatient.id;
-      console.log('Updating patient ID:', patientId);
+      // console.log('Updating patient ID:', patientId);
       
       this.patientsService.update(patientId, formData).subscribe({
         next: (response) => {
-          console.log('✅ Updated successfully', response);
+          // console.log('✅ Updated successfully', response);
           this.refreshPatientsList();
           this.closeRecordPopup();
         },
         error: (err) => {
-          console.error('❌ Update error:', err);
+          // console.error('❌ Update error:', err);
           // Add user-friendly error message here
         }
       });
     }
     // Otherwise → create
     else {
-      console.log('Creating new patient');
+      // console.log('Creating new patient');
       
       this.patientsService.create(formData).subscribe({
         next: (response) => {
-          console.log('✅ Created successfully', response);
+          // console.log('✅ Created successfully', response);
           this.refreshPatientsList();
           this.closeRecordPopup();
         },
         error: (err) => {
-          console.error('❌ Create error:', err);
+          // console.error('❌ Create error:', err);
           // Add user-friendly error message here
         }
       });
@@ -118,26 +118,26 @@ export class PatientsComponent implements OnInit {
 
   showPatientData(patient: any) {
   // fetch full record (so profession / healthStatus and other fields are available)
-  console.log('showPatientData: fetching full record for id', patient?.id);
+  // console.log('showPatientData: fetching full record for id', patient?.id);
   
   if (!patient?.id) {
       this.selectedPatient = patient;
       this.isRecordPopupVisible = true;
-      console.log('Showing popup (no id):', this.selectedPatient, 'isRecordPopupVisible=', this.isRecordPopupVisible);
+      // console.log('Showing popup (no id):', this.selectedPatient, 'isRecordPopupVisible=', this.isRecordPopupVisible);
 +     this.cdr.detectChanges();
       return;
   }
 
   this.patientsService.get(patient.id).subscribe({
       next: (full: any) => {
-        console.log('loaded full patient', full);
+        // console.log('loaded full patient', full);
         this.selectedPatient = full || patient;
         this.isRecordPopupVisible = true;
-        console.log('After load — selectedPatient:', this.selectedPatient, 'isRecordPopupVisible:', this.isRecordPopupVisible);
+        // console.log('After load — selectedPatient:', this.selectedPatient, 'isRecordPopupVisible:', this.isRecordPopupVisible);
 +       this.cdr.detectChanges();
       },
       error: (err: any) => {
-        console.error('Failed to load patient details', err);
+          // console.error('Failed to load patient details', err);
         this.selectedPatient = patient;
         this.isRecordPopupVisible = true;
 +       this.cdr.detectChanges();

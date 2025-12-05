@@ -162,18 +162,18 @@ export class RecordComponent implements OnChanges {
     }
 
     // Better FormData logging (show file names)
-    console.log('Saving FormData with meta:', {
-      id: this.form.id,
-      name: this.form.name,
-      filesCount: this.selectedFiles.length,
-      documentsCount: this.documents.length,
-      deletedDocuments: this.deletedDocuments
-    });
+    // console.log('Saving FormData with meta:', {
+    //   id: this.form.id,
+    //   name: this.form.name,
+    //   filesCount: this.selectedFiles.length,
+    //   documentsCount: this.documents.length,
+    //   deletedDocuments: this.deletedDocuments
+    // });
     fd.forEach((value, key) => {
       if (value instanceof File) {
-        console.log(`FormData entry: ${key} => File(${value.name})`);
+        // console.log(`FormData entry: ${key} => File(${value.name})`);
       } else {
-        console.log(`FormData entry: ${key} =>`, value);
+        // console.log(`FormData entry: ${key} =>`, value);
       }
     });
 

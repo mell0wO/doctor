@@ -1,0 +1,32 @@
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Virtual environment
+venv/
+env/
+
+# Environment variables (SECRET_KEY goes here)
+.env
+
+# Django static & media (optional)
+staticfiles/
+media/
+
+# Logs
+*.log
+
+# Byte-compiled
+*.pyc
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Node / Angular (if your frontend is in same repo)
+node_modules/
+dist/

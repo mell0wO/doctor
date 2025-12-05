@@ -51,7 +51,7 @@ export class FinanceComponent implements OnInit, AfterViewInit {
         }
       },
       error: (error) => {
-        console.error('Error loading data:', error);
+        // console.error('Error loading data:', error);
       }
     });
   }
@@ -76,7 +76,7 @@ export class FinanceComponent implements OnInit, AfterViewInit {
 
   renderChart() {
     if (!this.financeChart?.nativeElement) {
-      console.error('Canvas element not found!');
+      // console.error('Canvas element not found!');
       return;
     }
 
@@ -150,7 +150,7 @@ export class FinanceComponent implements OnInit, AfterViewInit {
 
       this.financeService.addEntry(entryData).subscribe({
         next: () => this.loadData(),
-        error: (error) => console.error('Error adding debit:', error)
+        // error: (error) => console.error('Error adding debit:', error)
       });
     }
   }
@@ -171,14 +171,14 @@ export class FinanceComponent implements OnInit, AfterViewInit {
 
       this.financeService.addEntry(entryData).subscribe({
         next: () => this.loadData(),
-        error: (error) => console.error('Error adding credit:', error)
+        // error: (error) => console.error('Error adding credit:', error)
       });
     }
   }
 
   deleteEntry(id: string) {
     if (confirm('Are you sure you want to delete this entry?')) {
-      console.warn('Delete endpoint not implemented yet');
+      // console.warn('Delete endpoint not implemented yet');
     }
   }
 
@@ -187,7 +187,7 @@ export class FinanceComponent implements OnInit, AfterViewInit {
     const newAmount = prompt('Enter new montant:', entry.amount.toString());
 
     if (newLabel && newAmount) {
-      console.warn('Update endpoint not implemented yet');
+      // console.warn('Update endpoint not implemented yet');
     }
   }
 } 

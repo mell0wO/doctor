@@ -4,7 +4,7 @@
         <h2>Se connecter à votre compte</h2>
 
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-            <input type="email" formControlName="email" placeholder="Email" />
+            <input type="username" formControlName="username" placeholder="Nom d'utilisateur" />
             
             <div class="password-container">
                 <input type="password" formControlName="password" placeholder="Mot de passe" id="password" />
@@ -13,12 +13,12 @@
                 </span>
             </div>
 
-            <div class="remember">
+            <!-- <div class="remember">
                 <input type="checkbox" formControlName="remember" />
                 <span>Rappeler ma préférence</span>
             </div>
 
-            <a href="#" class="forgot">Mot de passe oublié!</a>
+            <a href="#" class="forgot">Mot de passe oublié!</a> -->
 
             <button type="submit" class="btn">Se connecter</button>
         </form>

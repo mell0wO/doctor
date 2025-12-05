@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
 
 
 @Component({
@@ -9,19 +10,19 @@ import { RouterLink } from '@angular/router';
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent implements OnInit {
+  
+  constructor(private authService: AuthService) {}
+
 
   userRole = false;
 
   ngOnInit(): void {
     // No event available here
-    console.log("Sidebar initialized");
+    // console.log("Sidebar initialized");
   }
 
   async logout(event?: Event) {
-    console.log("logout", event);
+    this.authService.logout();  // call the logout from AuthService 
   }
 
-  onManageAccount(event?: Event) {
-    console.log("manage account", event);
-  }
 }
